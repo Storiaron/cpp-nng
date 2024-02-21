@@ -1,6 +1,9 @@
 #include <iostream>
+#include "FileReader.h"
 
 int main() {
-  std::cout << "Hello, World!" << std::endl;
+  FileReader fileReader;
+  std::locale::global(std::locale("hu_HU.UTF-8"));
+  fileReader.readFile("../task/network.mid");
   return 0;
 }
