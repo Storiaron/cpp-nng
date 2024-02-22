@@ -6,12 +6,12 @@
 #define CPP_NNG__FILEREADER_H_
 
 #include <string>
+#include <vector>
 class FileReader {
  public:
-  void readFile(const std::string& filePath);
+  std::vector<std::string> readFile(const std::string& filePath);
  private:
-  void readMifFile(const std::string& filePath);
-  void readMidFile(const std::string& filePath);
+  std::vector<std::string> readMidFile(const std::string& filePath);
   std::string getFileExtension(const std::string& filePath);
 };
 
