@@ -8,8 +8,8 @@
 
 std::vector<std::string> DataParser::parseData(const std::vector<std::string>& data) {
     StreetMap streetInfo;
-    std::string evenDuplications;
-    std::string oddDuplications;
+    std::string evenDuplications{"Even duplications: "};
+    std::string oddDuplications{"Odd duplications: "};
     for (const auto& line : data) {
         StreetIdInfoPair lineInfo = parseLine(line);
         std::pair<std::string, std::set<int>> duplicationInfo = getDuplicationInfo(streetInfo, std::move(lineInfo));
@@ -32,10 +32,14 @@ void DataParser::duplicationInfoToText(std::pair<std::string, std::set<int>> dup
         }
     }
     if(!evenNumbers.empty()) {
-        evenDuplications += duplicationInfo.first + std::to_string(evenNumbers.at(0)) + "-" + std::to_string(evenNumbers.at(evenNumbers.size() - 1));
+        evenDuplications += duplicationInfo.first + " : " +
+            std::to_string(evenNumbers.at(0)) + "-" + std::to_string(evenNumbers.at(evenNumbers.size() - 1));
+        evenDuplications += '\n';
     }
     if(!oddNumbers.empty()) {
-        oddDuplications += duplicationInfo.first + std::to_string(oddNumbers.at(0)) + "-" + std::to_string(oddNumbers.at(oddNumbers.size() - 1));
+        oddDuplications += duplicationInfo.first + " : " +
+            std::to_string(oddNumbers.at(0)) + "-" + std::to_string(oddNumbers.at(oddNumbers.size() - 1));
+        oddDuplications += '\n';
     }
 }
 
@@ -115,7 +119,7 @@ std::vector<std::string> DataParser::splitLine(std::string line, char delimiter)
 std::pair<std::string, std::set<int>> DataParser::getDuplicationInfo(StreetMap& streetInfo, StreetIdInfoPair data) {
     for (auto& pair : streetInfo) {
         if (*pair.first == *data.first) {
-            return std::make_pair(data.first->getStreetName() + data.first->getStreetType(), pair.second->getDuplicateNumbers(*data.second));
+            return std::make_pair(data.first->getStreetName() + " " + data.first->getStreetType(), pair.second->getDuplicateNumbers(*data.second));
         }
     }
     streetInfo.insert(std::move(data));
