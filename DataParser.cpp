@@ -31,8 +31,12 @@ void DataParser::duplicationInfoToText(std::pair<std::string, std::set<int>> dup
             oddNumbers.push_back(num);
         }
     }
-    evenDuplications += duplicationInfo.first + std::to_string(evenNumbers.at(0)) + "-" + std::to_string(*(evenNumbers.end() - 1));
-    oddDuplications += duplicationInfo.first + std::to_string(oddNumbers.at(0)) + "-" + std::to_string(*(oddNumbers.end() - 1));
+    if(!evenNumbers.empty()) {
+        evenDuplications += duplicationInfo.first + std::to_string(evenNumbers.at(0)) + "-" + std::to_string(evenNumbers.at(evenNumbers.size() - 1));
+    }
+    if(!oddNumbers.empty()) {
+        oddDuplications += duplicationInfo.first + std::to_string(oddNumbers.at(0)) + "-" + std::to_string(oddNumbers.at(oddNumbers.size() - 1));
+    }
 }
 
 StreetIdInfoPair DataParser::parseLine(const std::string &line) {
