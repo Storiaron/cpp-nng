@@ -24,7 +24,7 @@ std::vector<std::string> FileReader::readMidFile(const std::string& filePath) {
   std::string line;
   while (std::getline(file, line)) {
     //TODO remove cout after development
-    std::cout << line << std::endl;
+    //std::cout << line << std::endl;
     fileData.push_back(line);
   }
   file.close();

@@ -9,19 +9,25 @@
 class StreetIdentifier {
  public:
   bool operator<(const StreetIdentifier& other) const {
-    if (streetName != other.streetName)
-      return streetName < other.streetName;
-    if (streetType != other.streetType)
+    if (streetName != other.streetName) {
+        return streetName < other.streetName;
+    }
       return streetType < other.streetType;
-    if (postalCodeLeftSide != other.postalCodeLeftSide)
-      return postalCodeLeftSide < other.postalCodeLeftSide;
-    return postalCodeRightSide < other.postalCodeRightSide;
   }
+  bool operator==(const StreetIdentifier& other) const {
+      return other.getStreetName() == streetName && other.getStreetType() == streetType;
+  }
+  const std::string &getStreetName() const;
+
+  void setStreetName(const std::string &streetName);
+
+  const std::string &getStreetType() const;
+
+  void setStreetType(const std::string &streetType);
+
  private:
   std::string streetName;
   std::string streetType;
-  std::string postalCodeLeftSide;
-  std::string postalCodeRightSide;
 };
 
 #endif //CPP_NNG_MODEL_STREETIDENTIFIER_H_

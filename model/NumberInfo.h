@@ -6,17 +6,19 @@
 #define CPP_NNG_MODEL_NUMBERINFO_H_
 
 #include <string>
+#include <vector>
+#include <memory>
+#include <set>
+
 class NumberInfo {
  public:
-  std::string updateNumberInfo(std::string numberingScheme, std::string side,
-                               int startingNumber, int endingNumber);
+
+  std::set<int> getDuplicateNumbers(const NumberInfo &newInfo);
+
+  void setNumbers(const std::set<int> &numbers);
+
  private:
-  std::string numberingSchemeLeftSide;
-  std::string numberingSchemeRightSide;
-  int startingNumberLeftSide;
-  int endingNumberLeftSide;
-  int startingNumberRightSide;
-  int endingNumberRightSide;
+  std::set<int> numbers;
 };
 
 #endif //CPP_NNG_MODEL_NUMBERINFO_H_
