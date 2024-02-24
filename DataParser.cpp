@@ -21,9 +21,9 @@ std::vector<std::string> DataParser::parseData(const std::vector<std::string>& d
 void DataParser::duplicationInfoToText(StreetMap &duplicationInfo,
                                        std::string& evenDuplications, std::string& oddDuplications) {
 
-    std::vector<int> evenNumbers;
-    std::vector<int> oddNumbers;
     for(const auto& sg : duplicationInfo) {
+        std::vector<int> evenNumbers;
+        std::vector<int> oddNumbers;
         for (const int item : sg.second->getDuplicateNumbers()) {
             if(item % 2 == 0) {
                 evenNumbers.push_back(item);
