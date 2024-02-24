@@ -13,12 +13,14 @@
 class NumberInfo {
  public:
 
-  std::set<int> getDuplicateNumbers(const NumberInfo &newInfo);
+  void updateNumberInfo(const NumberInfo &newInfo);
+  const std::set<int>& getDuplicateNumbers();
 
   void setNumbers(const std::set<int> &numbers);
 
  private:
   std::set<int> numbers;
+  std::set<int> duplicateNumbers;
 };
 
 #endif //CPP_NNG_MODEL_NUMBERINFO_H_

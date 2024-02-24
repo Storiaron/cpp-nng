@@ -20,12 +20,12 @@ class DataParser {
   std::vector<std::string> parseData(const std::vector<std::string>& data);
  private:
   StreetIdInfoPair parseLine(const std::string& line);
-  std::pair<std::string, std::set<int>> getDuplicationInfo(StreetMap& streetInfo,
-                                                      StreetIdInfoPair data);
+  void updateDuplicationInfo(StreetMap& streetInfo,
+                             StreetIdInfoPair data);
   std::vector<std::string> splitLine(std::string line, char delimiter);
   std::unique_ptr<StreetIdentifier> buildStreetIdentifier(std::vector<std::string> info);
   std::unique_ptr<NumberInfo> buildNumberInfo(std::vector<std::string> info);
-  void duplicationInfoToText(std::pair<std::string, std::set<int>> duplicationInfo, std::string& evenDuplications, std::string& oddDuplications);
+  void duplicationInfoToText(StreetMap &duplicationInfo, std::string& evenDuplications, std::string& oddDuplications);
 };
 
 #endif //CPP_NNG__DATAPARSER_H_

@@ -5,14 +5,16 @@
 #include "NumberInfo.h"
 
 
-std::set<int> NumberInfo::getDuplicateNumbers(const NumberInfo &newInfo) {
-    std::set<int> duplications;
+void NumberInfo::updateNumberInfo(const NumberInfo &newInfo) {
     for(auto number : newInfo.numbers) {
         if(!numbers.insert(number).second) {
-            duplications.insert(number);
+            duplicateNumbers.insert(number);
         }
     }
-    return duplications;
+}
+
+const std::set<int> &NumberInfo::getDuplicateNumbers() {
+    return duplicateNumbers;
 }
 
 void NumberInfo::setNumbers(const std::set<int> &numbers) {

@@ -12,34 +12,36 @@ std::vector<std::string> DataParser::parseData(const std::vector<std::string>& d
     std::string oddDuplications{"Odd duplications: "};
     for (const auto& line : data) {
         StreetIdInfoPair lineInfo = parseLine(line);
-        std::pair<std::string, std::set<int>> duplicationInfo = getDuplicationInfo(streetInfo, std::move(lineInfo));
-        duplicationInfoToText(duplicationInfo, evenDuplications, oddDuplications);
+        updateDuplicationInfo(streetInfo, std::move(lineInfo));
     }
+    duplicationInfoToText(streetInfo, evenDuplications, oddDuplications);
     return {evenDuplications, oddDuplications};
 }
 
-void DataParser::duplicationInfoToText(std::pair<std::string, std::set<int>> duplicationInfo,
-                                                           std::string& evenDuplications, std::string& oddDuplications) {
+void DataParser::duplicationInfoToText(StreetMap &duplicationInfo,
+                                       std::string& evenDuplications, std::string& oddDuplications) {
 
     std::vector<int> evenNumbers;
     std::vector<int> oddNumbers;
-    for(int num : duplicationInfo.second) {
-        if(num % 2 == 0) {
-            evenNumbers.push_back(num);
+    for(const auto& sg : duplicationInfo) {
+        for (const int item : sg.second->getDuplicateNumbers()) {
+            if(item % 2 == 0) {
+                evenNumbers.push_back(item);
+            }
+            else {
+                oddNumbers.push_back(item);
+            }
         }
-        else {
-            oddNumbers.push_back(num);
+        if(!evenNumbers.empty()) {
+            evenDuplications += sg.first->getStreetName() + " " +  sg.first->getStreetType() +  " : " +
+                std::to_string(evenNumbers.at(0)) + "-" + std::to_string(evenNumbers.at(evenNumbers.size() - 1));
+            evenDuplications += '\n';
         }
-    }
-    if(!evenNumbers.empty()) {
-        evenDuplications += duplicationInfo.first + " : " +
-            std::to_string(evenNumbers.at(0)) + "-" + std::to_string(evenNumbers.at(evenNumbers.size() - 1));
-        evenDuplications += '\n';
-    }
-    if(!oddNumbers.empty()) {
-        oddDuplications += duplicationInfo.first + " : " +
-            std::to_string(oddNumbers.at(0)) + "-" + std::to_string(oddNumbers.at(oddNumbers.size() - 1));
-        oddDuplications += '\n';
+        if(!oddNumbers.empty()) {
+            oddDuplications += sg.first->getStreetName() + " " + sg.first->getStreetType() + " : " +
+                std::to_string(oddNumbers.at(0)) + "-" + std::to_string(oddNumbers.at(oddNumbers.size() - 1));
+            oddDuplications += '\n';
+        }
     }
 }
 
@@ -116,12 +118,12 @@ std::vector<std::string> DataParser::splitLine(std::string line, char delimiter)
     return tokens;
 }
 
-std::pair<std::string, std::set<int>> DataParser::getDuplicationInfo(StreetMap& streetInfo, StreetIdInfoPair data) {
+void DataParser::updateDuplicationInfo(StreetMap& streetInfo, StreetIdInfoPair data) {
     for (auto& pair : streetInfo) {
         if (*pair.first == *data.first) {
-            return std::make_pair(data.first->getStreetName() + " " + data.first->getStreetType(), pair.second->getDuplicateNumbers(*data.second));
+            pair.second->updateNumberInfo(*data.second);
+            return;
         }
     }
     streetInfo.insert(std::move(data));
-    return {};
 }
