@@ -9,7 +9,7 @@
 #include "iostream"
 class Logger {
  public:
-  void logResults(const std::vector<std::string>& results);
+  void logResult(const std::string& result);
 };
 
 
