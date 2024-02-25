@@ -14,6 +14,7 @@ std::vector<std::string> FileReader::readFile(const std::string &filePath) {
   else {
     std::cerr << "You entered a currently unsupported file format" << std::endl;
   }
+  return {};
 }
 std::vector<std::string> FileReader::readMidFile(const std::string& filePath) {
   std::ifstream file(filePath);

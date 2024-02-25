@@ -13,6 +13,7 @@ void DuplicateFinder::getNumberDuplications(std::vector<DataStreetInfoMapper::St
     for(auto& streetInfo : streetInfos) {
         updateDuplicationInfo(streetMap, streetInfo);
     }
+    duplicationInfoToText(streetMap, evenDuplications, oddDuplications);
 }
 
 void DuplicateFinder::duplicationInfoToText(std::map<std::unique_ptr<StreetIdentifier>, std::unique_ptr<NumberInfo>>& streetMap,
@@ -51,5 +52,4 @@ void DuplicateFinder::updateDuplicationInfo(std::map<std::unique_ptr<StreetIdent
         }
     }
     streetMap.insert(std::move(newData));
-
 }

@@ -5,6 +5,16 @@
 #include <iostream>
 #include <sstream>
 #include "DataStreetInfoMapper.h"
+std::map<std::string, int> informationIndeces{
+    {"STREET_NAME" , 16},
+    {"STREET_TYPE" , 17},
+    {"LEFT_SIDE_NUMBERING_SCHEME", 20},
+    {"LEFT_SIDE_STARTING_NUMBER", 21},
+    {"LEFT_SIDE_ENDING_NUMBER", 22},
+    {"RIGHT_SIDE_NUMBERING_SCHEME", 23},
+    {"RIGHT_SIDE_STARTING_NUMBER", 24},
+    {"RIGHT_SIDE_ENDING_NUMBER", 25}
+};
 std::vector<DataStreetInfoMapper::StreetIdInfoPair> DataStreetInfoMapper::parseData(const std::vector<std::string>& data) {
     std::vector<DataStreetInfoMapper::StreetIdInfoPair> streetInfo;
     for (const auto& line : data) {

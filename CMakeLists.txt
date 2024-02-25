@@ -16,4 +16,6 @@ add_executable(cpp_nng main.cpp
         output_handling/Logger.h
         input_processing/DataStreetInfoMapper.cpp
         input_processing/DataStreetInfoMapper.h
+        Application.cpp
+        Application.h
 )
